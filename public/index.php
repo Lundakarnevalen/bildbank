@@ -114,7 +114,7 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
             title="<?= htmlspecialchars($ps); ?>"
             data-lightbox="<?= htmlspecialchars($directory); ?>"
             data-title="<?= htmlspecialchars($ps); ?>">
-            <img src="/photo/<?= htmlspecialchars($directory); ?>/<?= htmlspecialchars($ps); ?>"
+            <img src="<?= htmlspecialchars(getThumb($directory, $ps)); ?>"
               alt="<?= htmlspecialchars($ps); ?>">
           </a>
         <?php else : ?>
@@ -124,7 +124,7 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
           <a href="?dir=<?= urlencode($dir); ?>" title="Öppna album">
 
           <?php if (isset($ps[0])) : ?>
-            <img src="/photo/<?= htmlspecialchars($dir); ?>/<?= htmlspecialchars($ps[0]); ?>"
+            <img src="<?= htmlspecialchars(getThumb($dir, $ps[0])); ?>"
               alt="<?= htmlspecialchars($dir); ?>"
               class="thumb">
           <?php else : ?>
@@ -149,3 +149,52 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
   <script src="/bower_components/lightbox/js/lightbox.min.js"></script>
 </body>
 </html>
+<?php
+
+function getThumb($dir, $img)
+{
+  $thumbDir = __DIR__ . '/thumb/' . $dir . '/';
+
+  if (!file_exists($thumbDir . $img)) {
+    $imgDir = __DIR__ . '/photo/' . $dir . '/';
+    if (!createThumb($imgDir, $thumbDir, 600, $img)) {
+      return '/photo/' . $dir . '/' . $img;
+    }
+  }
+
+  return '/thumb/' . $dir . '/' . $img;
+}
+
+function createThumb($pathToImages, $pathToThumbs, $thumbWidth, $thumbName)
+{
+  // parse path for the extension
+  $info = pathinfo($pathToImages . $thumbName);
+  // continue only if this is a JPEG image
+  $ext = strtolower($info['extension']);
+  if ('jpg' == $ext || 'jpeg' == $ext) {
+    echo "Creating thumbnail for {$thumbName} <br />";
+
+    // load image and get image size
+    $img = imagecreatefromjpeg( "{$pathToImages}{$thumbName}" );
+    $width = imagesx( $img );
+    $height = imagesy( $img );
+
+    // calculate thumbnail size
+    $new_width = $thumbWidth;
+    $new_height = floor( $height * ( $thumbWidth / $width ) );
+
+    // create a new temporary image
+    $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+
+    // copy and resize old image into new image
+    imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+
+    // save thumbnail into a file
+    if (!is_dir($pathToThumbs)) {
+      mkdir($pathToThumbs, 0755, true);
+    }
+    imagejpeg( $tmp_img, "{$pathToThumbs}{$thumbName}" );
+    return true;
+  }
+  return false;
+}

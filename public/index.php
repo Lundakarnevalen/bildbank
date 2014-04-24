@@ -32,7 +32,7 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
 
     foreach ($events as $e) {
         $pho = glob($e . '/*', GLOB_MARK);
-        $pho = preg_grep('/\.jpg|jpeg$/i', $pho);
+        $pho = preg_grep('/\.jpg|jpeg|png|gif$/i', $pho);
         $pho = array_map('basename', $pho);
 
         $dir = basename($e);

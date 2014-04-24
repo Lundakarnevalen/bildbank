@@ -31,11 +31,9 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
     $photos = array();
 
     foreach ($events as $e) {
-        $pho = array();
-
-        foreach (glob($e . '/*.{jpg,jpeg}', GLOB_BRACE) as $p) {
-            $pho[] = basename($p);
-        }
+        $pho = glob($e . '/*', GLOB_MARK);
+        $pho = preg_grep('/\.jpg|jpeg$/i', $pho);
+        $pho = array_map('basename', $pho);
 
         $dir = basename($e);
         $photos[$dir] = $pho;

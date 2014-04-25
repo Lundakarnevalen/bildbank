@@ -144,7 +144,7 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
 
   </div><!-- /.container -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/bower_components/lightbox/js/lightbox.min.js"></script>
 </body>

@@ -149,7 +149,9 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
   <script src="/bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
   <script type="text/javascript">
     ;(function($) {
-      $('.swipebox').swipebox();
+      if ($(window).width() > 960) {
+        $('.swipebox').swipebox();
+      }
     })(jQuery);
   </script>
 </body>

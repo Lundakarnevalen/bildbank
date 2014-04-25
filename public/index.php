@@ -172,8 +172,6 @@ function createThumb($pathToImages, $pathToThumbs, $thumbWidth, $thumbName)
   // continue only if this is a JPEG image
   $ext = strtolower($info['extension']);
   if ('jpg' == $ext || 'jpeg' == $ext) {
-    echo "Creating thumbnail for {$thumbName} <br />";
-
     // load image and get image size
     $img = imagecreatefromjpeg( "{$pathToImages}{$thumbName}" );
     $width = imagesx( $img );

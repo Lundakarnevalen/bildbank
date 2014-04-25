@@ -31,7 +31,7 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
 
   <!-- Bootstrap core CSS -->
   <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/bower_components/lightbox/css/lightbox.css" rel="stylesheet" />
+  <link href="/bower_components/swipebox/src/css/swipebox.min.css" rel="stylesheet" />
 
   <!-- Custom styles for this template -->
   <link href="/css/style.css" rel="stylesheet">
@@ -112,8 +112,8 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
           </h2>
           <a href="/photo/<?= htmlspecialchars($directory); ?>/<?= htmlspecialchars($ps); ?>"
             title="<?= htmlspecialchars($ps); ?>"
-            data-lightbox="<?= htmlspecialchars($directory); ?>"
-            data-title="<?= htmlspecialchars($ps); ?>">
+            class="swipebox"
+            title="<?= htmlspecialchars($ps); ?>">
             <img src="<?= htmlspecialchars(getThumb($directory, $ps)); ?>"
               alt="<?= htmlspecialchars($ps); ?>">
           </a>
@@ -146,7 +146,12 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
 
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/bower_components/lightbox/js/lightbox.min.js"></script>
+  <script src="/bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
+  <script type="text/javascript">
+    ;(function($) {
+      $('.swipebox').swipebox();
+    })(jQuery);
+  </script>
 </body>
 </html>
 <?php

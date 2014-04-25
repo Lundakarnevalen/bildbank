@@ -3,6 +3,6 @@
   "version": "0.1",
   "dependencies": {
     "bootstrap": "~3.1.1",
-    "lightbox": "~2.7.1"
+    "swipebox": "~1.2.9"
   }
 }

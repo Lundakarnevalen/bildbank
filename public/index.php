@@ -169,6 +169,9 @@ function createThumb($pathToImages, $pathToThumbs, $thumbWidth, $thumbName)
 {
   // parse path for the extension
   $info = pathinfo($pathToImages . $thumbName);
+  if (!isset($info['extension'])) {
+    return false;
+  }
   // continue only if this is a JPEG image
   $ext = strtolower($info['extension']);
   if ('jpg' == $ext || 'jpeg' == $ext) {

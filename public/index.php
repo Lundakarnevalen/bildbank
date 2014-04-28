@@ -107,7 +107,8 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
       <?php foreach ($photos as $dir => $ps) : ?>
       <div class="col-md-4 album-preview">
         <?php if ($album) : ?>
-          <h2 class="text-center">
+          <h2>
+            <span class="glyphicon glyphicon-picture"></span>
             <?= htmlspecialchars($ps); ?>
           </h2>
           <a href="/photo/<?= htmlspecialchars($directory); ?>/<?= htmlspecialchars($ps); ?>"
@@ -118,7 +119,8 @@ if ($locale !== setlocale(LC_CTYPE & LC_COLLATE, $locale)) {
               alt="<?= htmlspecialchars($ps); ?>">
           </a>
         <?php else : ?>
-          <h2 class="text-center">
+          <h2>
+            <span class="glyphicon glyphicon-folder-open"></span>
             <?= htmlspecialchars($dir); ?>
           </h2>
           <a href="?dir=<?= urlencode($dir); ?>" title="Öppna album">
